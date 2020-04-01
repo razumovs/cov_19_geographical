@@ -19,12 +19,13 @@ def read_density():
     rawData = pd.read_csv(io.StringIO(urlData.decode("utf-8")), sep="\t")
     return rawData
 
+
 region_df = read_regioni()
 region_population_df = read_density()
 
-
-# population density information - the source is from 2019, and does not match the region information from demo.istat.it exactly (2018)
-# shoud be ok for the purposes of getting population density and male/female break down
+# population density information - the source is from 2019,
+# and may not match the region information from demo.istat.it exactly (2018)
+# shoud be ok for the purposes of getting population density and male/female
 def get_list_population_stat_by_region(region: str):
     return region_population_df.loc[region_population_df["Regione"] == region]
 
@@ -76,13 +77,11 @@ def get_age_range(df_location, age_lower_bound, age_upper_bound):
         age_upper_bound = 100
     for i in range(age_lower_bound, age_upper_bound + 1, 1):
         if i in age_column:
-            sum_female_number = sum_female_number + df_location["Totale Femmine"][i]
-            sum_male_number = sum_male_number + df_location["Totale Maschi"][i]
+            sum_female_number += df_location["Totale Femmine"][i]
+            sum_male_number += df_location["Totale Maschi"][i]
     return (sum_female_number, sum_male_number)
 
 
 def get_age_range_by_region(region: str, age_lower_bound, age_upper_bound):
     df_location = get_list_population_by_region(region)
     return get_age_range(df_location, age_lower_bound, age_upper_bound)
-
-
