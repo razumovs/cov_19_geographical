@@ -44,10 +44,6 @@ def get_number_area_by_region(region: str):
     df = get_list_population_stat_by_region(region)
     return df["Area_km"].iloc[0]
 
-def get_number_smoker_share_by_region(region: str):
-    df = get_list_population_stat_by_region(region)
-    return df["ShareOfSmokers"].iloc[0]
-
 # demographics information
 def get_list_population_by_region(region: str):
     region_res = region_df.loc[region_df["Regione"] == region]
