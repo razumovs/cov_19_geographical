@@ -19,7 +19,6 @@ def read_density():
     rawData = pd.read_csv(io.StringIO(urlData.decode("utf-8")), sep="\t")
     return rawData
 
-
 region_df = read_regioni()
 region_population_df = read_density()
 
@@ -30,7 +29,7 @@ def get_list_population_stat_by_region(region: str):
     return region_population_df.loc[region_population_df["Regione"] == region]
 
 
-def get_number_population_denstiy_by_region(region: str):
+def get_number_population_density_by_region(region: str):
     df = get_list_population_stat_by_region(region)
     return df["Density"].iloc[0]
 
@@ -52,22 +51,19 @@ def get_list_population_by_region(region: str):
 
 def get_number_male_population_by_region(region: str):
     df = get_list_population_by_region(region)
-    return df["Totale Maschi"][101]
+    return df["Totale Maschi"].iloc[101]
 
 
 def get_number_female_population_by_region(region: str):
     df = get_list_population_by_region(region)
-    return df["Totale Femmine"][101]
+    return df["Totale Femmine"].iloc[101]
 
 
 def get_total_population_by_region(region: str):
-    return get_number_male_population_by_region(
-        region
-    ) + get_number_female_population_by_region(region)
+    return get_number_male_population_by_region(region) + get_number_female_population_by_region(region)
 
 
 def get_age_range(df_location, age_lower_bound, age_upper_bound):
-    age_column = df_location["Età"]
     sum_female_number = 0
     sum_male_number = 0
     if age_lower_bound < 0:
@@ -75,9 +71,8 @@ def get_age_range(df_location, age_lower_bound, age_upper_bound):
     if age_upper_bound > 100:
         age_upper_bound = 100
     for i in range(age_lower_bound, age_upper_bound + 1, 1):
-        if i in age_column:
-            sum_female_number += df_location["Totale Femmine"][i]
-            sum_male_number += df_location["Totale Maschi"][i]
+            sum_female_number += df_location["Totale Femmine"].iloc[i]
+            sum_male_number += df_location["Totale Maschi"].iloc[i]
     return (sum_female_number, sum_male_number)
 
 

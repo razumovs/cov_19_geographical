@@ -3,14 +3,14 @@ from italy_data_parser import *
 # examples for region_density information
 region_density_information = get_list_population_stat_by_region("Piemonte")
 population_num = get_number_population_by_region("Piemonte")
-population_dense = get_number_population_denstiy_by_region("Piemonte")
+population_dense = get_number_population_density_by_region("Piemonte")
 region_area = get_number_area_by_region("Piemonte")
 
 s = f"population:{population_num} area:{region_area} density:{population_dense}"
 print(s)
 
 
-region_population = get_list_population_by_region("Piemonte")
+region_population = get_list_population_by_region("Abruzzo")
 (females, males) = get_age_range(region_population, 99, 100)
 print("females ages: 99-100 ", females, " males ages: 99-100 ", males)
 ret1 = get_number_male_population_by_region("Piemonte")
